@@ -16,6 +16,9 @@ public class UserService {
 
     public User createUser(UserCreationRequest request){
         User user = new User();
+
+        if(userRepository.existsByName(request.getName()))
+            throw  new RuntimeException("Username already exists");
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(request.getPassword());
